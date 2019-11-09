@@ -1,5 +1,18 @@
 import bpy
 
+def get_user_preferences(context=None):
+    """Multi version compatibility for getting addon keys"""
+    if not context:
+        context = bpy.context
+    prefs = None
+    if hasattr(context, "user_preferences"):
+        prefs = context.user_preferences
+    elif hasattr(context, "preferences"):
+        prefs = context.preferences
+    if prefs:
+        return prefs
+    else:
+        raise Exception("Could fetch user preferences")
 
 class RIGIFYFORMBLAB_OT_enable_rigify(bpy.types.Operator):
     bl_idname = "object.rigifyformblab_enable_rigify"
@@ -8,7 +21,8 @@ class RIGIFYFORMBLAB_OT_enable_rigify(bpy.types.Operator):
     bl_options = {'REGISTER', 'UNDO'}
 
     def execute(self, context):
-        bpy.ops.preferences.addon_enable(module="rigify")
+        prefs = get_user_preferences(bpy.context)
+        prefs.addon_enable(module="rigify")
         return {'FINISHED'}
 
 
@@ -29,7 +43,8 @@ class RIGIFYFORMBLAB_PT_panel(bpy.types.Panel):
 
         col = self.layout.column()
 
-        if not "rigify" in context.preferences.addons.keys():
+        prefs = get_user_preferences(bpy.context)
+        if not "rigify" in prefs.addons.keys():
             col.operator('object.rigifyformblab_enable_rigify')
         else:
             col.operator('object.rigifyformblab_addrig')
