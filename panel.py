@@ -12,7 +12,7 @@ def get_user_preferences(context=None):
     if prefs:
         return prefs
     else:
-        raise Exception("Could fetch user preferences")
+        raise Exception("Could not fetch user preferences")
 
 class RIGIFYFORMBLAB_OT_enable_rigify(bpy.types.Operator):
     bl_idname = "object.rigifyformblab_enable_rigify"
@@ -29,7 +29,7 @@ class RIGIFYFORMBLAB_OT_enable_rigify(bpy.types.Operator):
 class RIGIFYFORMBLAB_PT_panel(bpy.types.Panel):
     bl_idname = "RIGIFYFORMBLAB_PT_panel"
     bl_space_type = 'VIEW_3D'
-    bl_region_type = 'UI'
+    bl_region_type = 'TOOLS' if bpy.app.version < (2, 80) else 'UI'
     bl_label = "Rigify for MB-Lab"
     # bl_context = "objectmode"
     bl_category = "Rigify for MB-Lab"
