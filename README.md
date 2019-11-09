@@ -6,3 +6,12 @@
 4. Follow the tutorial below on how to use it with MB-Lab Character
 
 https://www.youtube.com/watch?v=JXzxVerR2C4
+
+TODO:
+1. Backport to 2.79
+
+Is it possible to maintain a single codebase that works for both Blender 2.7 and 2.8? (Yes).
+
+c.f. https://theduckcow.com/2019/update-addons-both-blender-28-and-27-support/
+
+https://www.youtube.com/watch?v=W8PxOFA6AFo
