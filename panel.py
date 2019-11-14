@@ -1,18 +1,6 @@
 import bpy
 
-def get_user_preferences(context=None):
-    """Multi version compatibility for getting addon keys"""
-    if not context:
-        context = bpy.context
-    prefs = None
-    if hasattr(context, "user_preferences"):
-        prefs = context.user_preferences
-    elif hasattr(context, "preferences"):
-        prefs = context.preferences
-    if prefs:
-        return prefs
-    else:
-        raise Exception("Could not fetch user preferences")
+from .backport import get_user_preferences
 
 class RIGIFYFORMBLAB_OT_enable_rigify(bpy.types.Operator):
     bl_idname = "object.rigifyformblab_enable_rigify"
